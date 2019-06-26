@@ -2,12 +2,16 @@
 	Philippe CORBEL
 	24/06/2017
 	
-	Le croquis utilise 25256 octets (78%)
-	Les variables globales utilisent 1217 octets (59%) de mémoire dynamique
+	Arduino IDE 1.8.9, AVR boards 1.6.21(1.6.23 buggé avec 1.8.9 pour UNO)
+	Le croquis utilise 25038 octets (77%)
+	Les variables globales utilisent 1211 octets (59%) de mémoire dynamique
 	RAM lancement = 638, encours= 596, message SYS RAM= 493
 	
 	25256,1207
 	24800,1207 si suppression message aide ??
+	
+	V1-201 25/06/2019
+	ajout date et heure tous les messages
 	
 	V1-200 18/04/2018 installé PN64 le 07/05/2018
 	1 - Ajout mesure tension Batterie2 8V
@@ -66,7 +70,7 @@
 		#define dtNBR_ALARMS 3   6 à l'origine nombre d'alarmes RAM*11 max is 255
 */
 
-String ver="V1-200";
+String ver="V1-201";
 
 #include <Adafruit_FONA.h>
 #include <EEPROM.h>							// variable en EEPROM
@@ -469,7 +473,7 @@ void traite_sms(byte slot){	// traitement du SMS par slot
       if ( String(nameIDbuffer).length() > 0){// nom appelant existant
 				//Envoyer une réponse
 				//Serial.println(F("Envoie reponse..."));
-				message = Id;
+				messageId();
 				if (!(textesms.indexOf(F("TEL")) ==0 || textesms.indexOf(F("tel")) ==0 || textesms.indexOf(F("Tel"))==0)){
 					textesms.toUpperCase();		// passe tout en Maj sauf si "TEL"
 					textesms.replace(" ","");	// supp tous les espaces
@@ -491,7 +495,7 @@ void traite_sms(byte slot){	// traitement du SMS par slot
 					// message += F("Vie (0-59') >07h00");
 					// sendSMSReply(callerIDbuffer);	// SMS n°1
 					
-					// message = Id;
+					// messageId();
 					// message += F("Nouvel Id : Id= (max 10c)");
 					// message += fl;				
 					// message += F("List Num Tel:LST?");
@@ -550,7 +554,7 @@ void traite_sms(byte slot){	// traitement du SMS par slot
 				fin_tel:	
 					if(!FlagOK){// erreur de format
 						//Serial.println(F("false"));
-						message = Id ;
+						messageId();
 						message += F("Commande non reconnue ?");// non reconnu
 						sendSMSReply(callerIDbuffer);						// SMS non reconnu
 					}
@@ -568,7 +572,7 @@ void traite_sms(byte slot){	// traitement du SMS par slot
 				}	
 				else if (textesms == F("LST?"))	//	Liste des Num Tel
 				{
-					message = Id;
+					messageId();
 					for(byte i=1;i<10;i++){
 						char name[15];
 						char num[14];
@@ -585,7 +589,7 @@ void traite_sms(byte slot){	// traitement du SMS par slot
 						if((i%3)==0){
 						sendSMSReply(callerIDbuffer);// envoi sur plusieurs SMS
 						//Serial.println(message);
-						message = Id;
+						messageId();
 						}
 					}
 					fin_i:
@@ -598,7 +602,7 @@ void traite_sms(byte slot){	// traitement du SMS par slot
 					sendSMSReply(callerIDbuffer);
 				}
 				else if (textesms.indexOf(F("SYS")) == 0){				//	Etat Systeme
-					message = Id;
+					messageId();
 					flushSerial();
 					fona.getNetworkName(replybuffer, 15);		// Operateur
 					//Serial.println(replybuffer);
@@ -642,7 +646,7 @@ void traite_sms(byte slot){	// traitement du SMS par slot
 						Alarm.delay(10);
 						Id += fl;
 					}
-					message = Id;
+					messageId();
 					message += F("Nouvel Id");
 					sendSMSReply(callerIDbuffer);
 				}
@@ -753,7 +757,7 @@ void envoieGroupeSMS(){	//	V1-2
 }
 //---------------------------------------------------------------------------
 void generationMessage() {
-	message = Id ;
+	messageId();
 	if (FlagAlarmeBatt || FlagAlarmeSect || FlagAlarmeTension
 			|| FlagLastAlarmeBatt || FlagLastAlarmeSect	|| FlagLastAlarmeTension){
 		message += F("--KO--------KO--");//+= V1-21
@@ -879,6 +883,12 @@ void displayTime(boolean m) {
   if (m) message += dt;
   Serial.println(dt);
 }
+//--------------------------------------------------------------------------------//
+void messageId() {
+  message = Id;
+  displayTime(true);
+  message += fl;
+	}
 //--------------------------------------------------------------------------------//
 // void ResetSIM800(){ // V1-200
 	// fonaSerial -> println(F("AT+CFUN=1,1"));
