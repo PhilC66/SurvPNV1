@@ -3,7 +3,7 @@
 	24/06/2017
 	
 	Arduino IDE 1.8.9, AVR boards 1.6.21(1.6.23 buggé avec 1.8.9 pour UNO)
-	Le croquis utilise 25038 octets (77%)
+	Le croquis utilise 25038 octets (77%) idem PC et Raspberry
 	Les variables globales utilisent 1211 octets (59%) de mémoire dynamique
 	RAM lancement = 638, encours= 596, message SYS RAM= 493
 	
@@ -593,7 +593,7 @@ void traite_sms(byte slot){	// traitement du SMS par slot
 						}
 					}
 					fin_i:
-					if(message.length()>Id.length())sendSMSReply(callerIDbuffer);// SMS final (V1.1)
+					if(message.length()>Id.length()+20)sendSMSReply(callerIDbuffer);// SMS final (V1.1)
 					//Serial.println(message);
 				}
 				else if (textesms.indexOf(F("PN")) == 0 || textesms.indexOf(F("ETAT")) == 0 || textesms.indexOf(F("ST")) == 0) {	// "ETAT PN?"
