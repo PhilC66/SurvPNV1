@@ -2,7 +2,12 @@
 	Philippe CORBEL
 	24/06/2017
 	
-	Arduino IDE 1.8.9, AVR boards 1.6.21(1.6.23 buggé avec 1.8.9 pour UNO)
+	11/10/2019
+  Arduino IDE 1.8.10, AVT boards 1.8.1
+  Le croquis utilise 24612 octets (76%) PC et Raspberry 24610 76%
+	Les variables globales utilisent 1209 octets (59%) idem PC Raspberry
+  
+  Arduino IDE 1.8.9, AVR boards 1.6.21(1.6.23 buggé avec 1.8.9 pour UNO)
 	Le croquis utilise 25038 octets (77%) idem PC et Raspberry
 	Les variables globales utilisent 1211 octets (59%) de mémoire dynamique
 	RAM lancement = 638, encours= 596, message SYS RAM= 493
