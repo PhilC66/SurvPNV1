@@ -3,8 +3,8 @@
 	24/06/2017
 	
 	11/10/2019
-  Arduino IDE 1.8.10, AVT boards 1.8.1
-  Le croquis utilise 24612 octets (76%) PC et Raspberry 24610 76%
+  Arduino IDE 1.8.10, AVR boards 1.8.1
+  Le croquis utilise 25020 octets (81%) PC et Raspberry 24610 76%
 	Les variables globales utilisent 1209 octets (59%) idem PC Raspberry
   
   Arduino IDE 1.8.9, AVR boards 1.6.21(1.6.23 buggé avec 1.8.9 pour UNO)
@@ -14,7 +14,14 @@
 	
 	25256,1207
 	24800,1207 si suppression message aide ??
-	
+
+  --------------- a faire -----------------
+
+  -----------------------------------------
+
+  V1-202 19/11/2018 pas encore installé
+  modification sms Majheure idem PNV2-1 et Autorail
+
 	V1-201 25/06/2019
 	ajout date et heure tous les messages
 	
@@ -676,12 +683,20 @@ void traite_sms(byte slot){	// traitement du SMS par slot
           sendSMSReply(callerIDbuffer);
         //}
       }			
-			// else if (textesms.indexOf(F("MAJHEURE")) == 0) {	//	forcer mise a l'heure V1-200
-				// message += F("Mise a l'heure");
-				// ResetSIM800();	// reset soft SIM800
-				// MajHeure();			// mise a l'heure
-				// sendSMSReply(callerIDbuffer);
-			// }	
+       else if (textesms.indexOf(F("MAJHEURE")) == 0) {	//	forcer mise a l'heure
+         char datebuffer[21];
+         fona.getSMSdate(slot, datebuffer, 20);
+         String mytime = String(datebuffer).substring(0,20);
+         // Serial.print(F("heure du sms:")),Serial.println(mytime);
+         String _temp = F("AT+CCLK=\"");
+         _temp += mytime + "\"\r\n";
+         // Serial.print(_temp);
+         fona.print(_temp);;// mise a l'heure SIM800
+         Alarm.delay(100);
+         MajHeure();			// mise a l'heure
+
+         sendSMSReply(callerIDbuffer);
+      }
 			else if (textesms == F("RST")){								// demande RESET
 					message += F("Le systeme va etre relance");	// apres envoie du SMS!
 					FlagReset = true;														// reset prochaine boucle
