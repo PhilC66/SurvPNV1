@@ -2,22 +2,25 @@
 	Philippe CORBEL
 	24/06/2017
 	
-	11/10/2019
+	07/05/2020
   Arduino IDE 1.8.10, AVR boards 1.8.1
-  Le croquis utilise 25020 octets (81%) PC et Raspberry 24610 76%
-	Les variables globales utilisent 1209 octets (59%) idem PC Raspberry
+  Le croquis utilise 24944 octets (77%) PC et Raspberry 24610 76%
+	Les variables globales utilisent 1216 octets (59%) PC
   
-  Arduino IDE 1.8.9, AVR boards 1.6.21(1.6.23 buggé avec 1.8.9 pour UNO)
-	Le croquis utilise 25038 octets (77%) idem PC et Raspberry
-	Les variables globales utilisent 1211 octets (59%) de mémoire dynamique
-	RAM lancement = 638, encours= 596, message SYS RAM= 493
-	
+  IDE 1.8.10 Raspi, AVR boards 1.8.1
+	Le croquis utilise 24944 octets (77%)
+	Les variables globales utilisent 1216 octets (59%) de mémoire dynamique
+
 	25256,1207
 	24800,1207 si suppression message aide ??
 
   --------------- a faire -----------------
 
   -----------------------------------------
+
+  V1-202 07/05/2020 pas encore installé
+  !!!!! Version carte SIM sans codePIN !!!!!
+  suppression verif cnx reseau
 
   V1-202 19/11/2018 pas encore installé
   modification sms Majheure idem PNV2-1 et Autorail
@@ -82,7 +85,7 @@
 		#define dtNBR_ALARMS 3   6 à l'origine nombre d'alarmes RAM*11 max is 255
 */
 
-String ver="V1-201";
+String ver="V1-202";
 
 #include <Adafruit_FONA.h>
 #include <EEPROM.h>							// variable en EEPROM
@@ -297,18 +300,18 @@ void loop(){
 //---------------------------------------------------------------------------
 void Acquisition(){
 	// verification si toujours connecté au réseau		
-	byte n = fona.getNetworkStatus();	
+	// byte n = fona.getNetworkStatus();
 		//Serial.print(F("netwkstatus=")),Serial.println(n);		
-	if(n != 1 && n != 5){				
-		Ntwk_dcx++;
-		if (Ntwk_dcx > 20){ // 20x15s=5mn
-			Serial.println(F("Pas de reseau !"));
-			softReset();					//	redemarrage Arduino apres 5mn
-		}
-	}
-	else{
-		if(Ntwk_dcx > 0) Ntwk_dcx --;
-	}
+	// if(n != 1 && n != 5){
+		// Ntwk_dcx++;
+		// if (Ntwk_dcx > 20){ // 20x15s=5mn
+			// Serial.println(F("Pas de reseau !"));
+			// softReset();					//	redemarrage Arduino apres 5mn
+		// }
+	// }
+	// else{
+		// if(Ntwk_dcx > 0) Ntwk_dcx --;
+	// }
 	static byte nalaBatt=0;					// compteur alarme consecutive
 	// if (!digitalRead(Ip_AlaBatt)) {// supprimé en V1-200
 		// nalaBatt++;
