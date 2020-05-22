@@ -18,7 +18,7 @@
 
   -----------------------------------------
 
-  V1-202 07/05/2020 pas encore installé
+  V1-202 07/05/2020 installé PN64 14/05/2020
   !!!!! Version carte SIM sans codePIN !!!!!
   suppression verif cnx reseau
 
