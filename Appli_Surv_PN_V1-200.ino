@@ -2,7 +2,16 @@
 	Philippe CORBEL
 	24/06/2017
 	
-	07/05/2020
+  07/05/2020 pas encore installée
+  Arduino IDE 1.8.10, AVR boards 1.8.1
+  Le croquis utilise 24976 octets (77%) PC et Raspberry 24610 76%
+	Les variables globales utilisent 1216 octets (59%) PC
+  
+  IDE 1.8.10 Raspi, AVR boards 1.8.1
+	Le croquis utilise xx octets (77%)
+	Les variables globales utilisent xx octets (59%) de mémoire dynamique
+  
+	07/05/2020 version actuelle
   Arduino IDE 1.8.10, AVR boards 1.8.1
   Le croquis utilise 24944 octets (77%) PC et Raspberry 24610 76%
 	Les variables globales utilisent 1216 octets (59%) PC
@@ -11,13 +20,12 @@
 	Le croquis utilise 24944 octets (77%)
 	Les variables globales utilisent 1216 octets (59%) de mémoire dynamique
 
-	25256,1207
-	24800,1207 si suppression message aide ??
-
   --------------- a faire -----------------
 
   -----------------------------------------
-
+  V1-203 21/08/2020 pas encore installé
+  ajouté sur message ST apres tension batterie OK/KO
+  
   V1-202 07/05/2020 installé PN64 14/05/2020
   !!!!! Version carte SIM sans codePIN !!!!!
   suppression verif cnx reseau
@@ -811,6 +819,11 @@ void generationMessage() {
 	messagebatterie(1);	//	V1-200
 	message += F(";");	//	V1-200
 	messagebatterie(2);	//	V1-200
+  if(FlagAlarmeTension){ // V1-203
+    message += F(" KO");
+  } else{
+    message += F(" OK");
+  }
 	message += fl;			//	V1-200
 }
 //---------------------------------------------------------------------------
