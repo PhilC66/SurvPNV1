@@ -2,28 +2,17 @@
 	Philippe CORBEL
 	24/06/2017
 	
-  07/05/2020 pas encore installée
-  Arduino IDE 1.8.10, AVR boards 1.8.1
-  Le croquis utilise 24976 octets (77%) PC et Raspberry 24610 76%
-	Les variables globales utilisent 1216 octets (59%) PC
-  
-  IDE 1.8.10 Raspi, AVR boards 1.8.1
-	Le croquis utilise xx octets (77%)
-	Les variables globales utilisent xx octets (59%) de mémoire dynamique
-  
-	07/05/2020 version actuelle
-  Arduino IDE 1.8.10, AVR boards 1.8.1
-  Le croquis utilise 24944 octets (77%) PC et Raspberry 24610 76%
-	Les variables globales utilisent 1216 octets (59%) PC
-  
-  IDE 1.8.10 Raspi, AVR boards 1.8.1
-	Le croquis utilise 24944 octets (77%)
-	Les variables globales utilisent 1216 octets (59%) de mémoire dynamique
+	25/03/2021
+  IDE 1.8.10, AVR boards 1.8.1, PC fixe
+	Le croquis utilise 24976 octets (77%), 1216 octets (59%) de mémoire dynamique
+
+	IDE 1.8.10 Raspberry, AVR boards 1.8.1
+	Le croquis utilise 24976 octets (77%), 1216 octets (59%) de mémoire dynamique
 
   --------------- a faire -----------------
 
   -----------------------------------------
-  V1-203 21/08/2020 pas encore installé
+  V1-203 21/08/2020 installé PN64 25/03/2021
   ajouté sur message ST apres tension batterie OK/KO
   
   V1-202 07/05/2020 installé PN64 14/05/2020
@@ -93,7 +82,7 @@
 		#define dtNBR_ALARMS 3   6 à l'origine nombre d'alarmes RAM*11 max is 255
 */
 
-String ver="V1-202";
+String ver="V1-203";
 
 #include <Adafruit_FONA.h>
 #include <EEPROM.h>							// variable en EEPROM
